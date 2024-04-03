@@ -1,2 +1,29 @@
 # Rogue-Tiled
 
+
+# Rogue-ASCII
+Port of original PC-DOS Epyx Rogue to SDL
+
+![rogue_ascii](https://github.com/raytomely/Rogue-ASCII/assets/45993451/9313a7eb-dae1-4d28-8218-00c458903241)
+
+<sup>*(these are actual in-game screenshots)*</sup>
+
+
+```sh
+Happy gaming !
+```
+----
+
+### Cheat Keys
+* Refer to [cheat_keys.txt](cheat_keys.txt) for `cheating` in game.
+
+
+## References
+This project have been influenced by the following works , without using them as a reference I would've not been able to complete this project :
+
+- https://github.com/MestreLion/roguepc
+
+- https://www.maizure.org/projects/decoded-rogue/
+
+**NOTE:** the original rogue can be found [here](https://britzl.github.io/roguearchive/).
+
