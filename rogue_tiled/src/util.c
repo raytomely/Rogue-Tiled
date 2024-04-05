@@ -252,6 +252,16 @@ void draw_rect(SDL_Surface *dst, int x, int y, int w, int h, Uint32 color, Uint8
     int inc = dst->pitch >> 2; //dst->w
     Uint32 *dst_buffer, *old_dst_buffer;
 
+    if(w < 0)
+    {
+        x += w; w = -w;
+    }
+
+    if(h < 0)
+    {
+        y += h; h = -h;
+    }
+
     if(y >= 0 && y <= dst->h)
     {
         line_start = x;  line_end = x + w;

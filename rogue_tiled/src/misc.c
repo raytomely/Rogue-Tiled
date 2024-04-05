@@ -759,6 +759,7 @@ search()
 		}
 }
 
+extern byte video_memory [25][80];
 
 /*
  * d_level:
@@ -771,7 +772,9 @@ d_level()
 		msg("I see no way down");
 	else {
 		level++;
-		new_level(); draw_map_rect();
+		new_level();
+		draw_map_rect();
+		memset(video_memory, 0, sizeof(video_memory));
 	}
 }
 
@@ -787,7 +790,9 @@ u_level()
 			level--;
 			if (level == 0)
 				total_winner();
-			new_level(); draw_map_rect();
+			new_level();
+			draw_map_rect();
+			memset(video_memory, 0, sizeof(video_memory));
 			msg("you feel a wrenching sensation in your gut");
 		}
 		else

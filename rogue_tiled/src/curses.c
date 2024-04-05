@@ -1432,7 +1432,7 @@ void draw_scrolling_map(void)
             if(video_memory[y][x] != 0)
             {
                 print_tile(screen, x_draw, y_draw, FLOOR);
-                if(!is_weapon_tile(chat(y,x)))
+                if(!is_weapon_tile(video_memory[y][x]))
                     print_tile(screen, x_draw, y_draw, chat(y,x));
                 print_tile(screen, x_draw, y_draw, video_memory[y][x]);
             }
