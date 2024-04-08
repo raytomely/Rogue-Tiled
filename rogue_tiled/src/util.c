@@ -247,7 +247,7 @@ void blit_blended(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rec
 
 void draw_rect(SDL_Surface *dst, int x, int y, int w, int h, Uint32 color, Uint8 thickness)
 {
-    int line_start, line_end, i, t, t_end, x_buff, y_buff, bail = 0;
+    int line_start, line_end, i, t, t_end, x_buff, y_buff, bail_out = 0;
     int bpp = dst->format->BytesPerPixel;
     int inc = dst->pitch >> 2; //dst->w
     Uint32 *dst_buffer, *old_dst_buffer;
@@ -265,7 +265,7 @@ void draw_rect(SDL_Surface *dst, int x, int y, int w, int h, Uint32 color, Uint8
     if(thickness > h || thickness > w || thickness == 0)
     {
         t_end = h;
-        bail = 1;
+        bail_out = 1;
     }
     else
         t_end = thickness;
@@ -295,7 +295,7 @@ void draw_rect(SDL_Surface *dst, int x, int y, int w, int h, Uint32 color, Uint8
             }
         }
     }
-    if(bail) return;
+    if(bail_out) return;
 
     if(thickness > h) t_end = h; else t_end = thickness;
     if((y + h) >= 0 && (y + h - t_end) <= dst->h)
