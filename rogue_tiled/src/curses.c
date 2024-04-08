@@ -1413,8 +1413,28 @@ void draw_map_rect(void)
     //draw_rect(screen, 0, CHAR_HEIGHT+3, TILE_WIDTH * 20, TILE_HEIGHT * 10+10, 0x808000, 5);
 }
 
+#define is_weapon_tile(ch) (ch >= '0' && ch <= '9')
+#define index(y,x)  ((x * (maxrow-1)) + y - 1)
+extern SDL_Surface *tiles;
+
+void draw_map_tile(SDL_Surface *surface, int x_draw, int y_draw, int x, int y)
+{
+    SDL_Rect image_pos = {x_draw, y_draw};
+    SDL_Rect image_size = {0, 0, TILE_WIDTH, TILE_HEIGHT};
+    image_size.x = ((FLOOR - TILE_OFFSET) % TILE_COLUMNS) * TILE_WIDTH;
+    image_size.y = ((FLOOR - TILE_OFFSET) / TILE_COLUMNS) * TILE_HEIGHT;
+    SDL_BlitSurface(tiles, &image_size, surface, &image_pos);
+    if(!is_weapon_tile(video_memory[y][x]))
+        image_size.x = ((_level[index(y,x)] - TILE_OFFSET) % TILE_COLUMNS) * TILE_WIDTH;
+        image_size.y = ((_level[index(y,x)] - TILE_OFFSET) / TILE_COLUMNS) * TILE_HEIGHT;
+        SDL_BlitSurface(tiles, &image_size, surface, &image_pos);
+    image_size.x = ((video_memory[y][x] - TILE_OFFSET) % TILE_COLUMNS) * TILE_WIDTH;
+    image_size.y = ((video_memory[y][x] - TILE_OFFSET) / TILE_COLUMNS) * TILE_HEIGHT;
+    SDL_BlitSurface(tiles, &image_size, surface, &image_pos);
+}
+
 SDL_Rect map_draw_pos = {0, CHAR_HEIGHT+8, TILE_WIDTH * 20, TILE_HEIGHT * 10};
-#define is_weapon_tile(ch)  (ch >= '0' && ch <= '9')
+//#define is_weapon_tile(ch)  (ch >= '0' && ch <= '9')
 
 void draw_scrolling_map(void)
 {
@@ -1435,6 +1455,7 @@ void draw_scrolling_map(void)
                 if(!is_weapon_tile(video_memory[y][x]))
                     print_tile(screen, x_draw, y_draw, chat(y,x));
                 print_tile(screen, x_draw, y_draw, video_memory[y][x]);
+                //draw_map_tile(screen, x_draw, y_draw, x, y);
             }
             x_draw += TILE_WIDTH;
         }
